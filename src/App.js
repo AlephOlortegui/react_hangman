@@ -1,10 +1,12 @@
 import Hangman from './Comp/Hangman'
 import './App.css'
+import FxHangman from './Comp/FxHangman';
 
 function App() {
   return (
     <>
-     <Hangman />
+     {/* <Hangman /> */}
+     <FxHangman />
     </>
   );
 }
