@@ -15,13 +15,14 @@ class Hangman extends Component {
         maxWrong: 6,
         images: [img0,img1,img2,img3,img4,img5,img6]
     }
-    state = { nWrong:0, guessed: new Set(), answer: randomWord() }
+    state = { nWrong:0, guessed: new Set(), group: 'colors', answer: randomWord() }
     
     reset = () => {
         this.setState({
           nWrong: 0,
           guessed: new Set(),
-          answer: randomWord()
+          answer: randomWord(),
+          group: 'colors'
         });
     }
 
@@ -51,9 +52,19 @@ class Hangman extends Component {
         ))
     }
 
+    handleChange = (e) => { 
+        const {value,name} = e.target;
+        this.setState({
+            [name]: value,
+            answer: randomWord(value),
+            nWrong: 0,
+            guessed: new Set()
+        })
+    }
+
     render() { 
         const {maxWrong, images} = this.props;
-        const {nWrong, answer} = this.state;
+        const {nWrong, answer, group} = this.state;
         let alt = `${nWrong}/${maxWrong} guesses`;
         let isWinner = this.guessedWord().join("") === answer;
         let gameOver = nWrong >= maxWrong
@@ -63,14 +74,30 @@ class Hangman extends Component {
 
         return (
             <div className="Hangman">
-                <h1>Hangman Colors</h1>
-                <img src={images[nWrong]} alt={alt} />
-                <p>Guessed Wrong: {nWrong}</p>
-                <p className="Hangman-word">
-                    {gameOver ? answer : this.guessedWord()}
-                </p>
-                <div className="btns">{gameState}</div>
-                <button id='reset' onClick={this.reset}>Restart?</button>
+                <h1 className="Hangman-title">Hangman {group}</h1>
+                <div className="Hangman-flex">
+                    <div className="Hangman-counter">
+                        <img src={images[nWrong]} alt={alt} />
+                        <p>Guessed Wrong: {nWrong}</p>
+                    </div>
+                    <div>
+                        <p className="Hangman-word">
+                            {gameOver ? answer : this.guessedWord()}
+                        </p>
+                        <div className="btns">{gameState}</div>
+                    </div>
+                    <div className="Hangman-reset">
+                        <button id='reset' value="colors" onClick={this.reset}>Restart?</button>
+                        <form>
+                            <label htmlFor="group">Guess About: </label>
+                            <select name="group" id="group" value={group} onChange={this.handleChange}>
+                                <option value="colors">Colors</option>
+                                <option value="countries">Countries</option>
+                                <option value="animals">Animals</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }

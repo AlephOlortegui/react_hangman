@@ -7,9 +7,35 @@ body{
 }
 
 .Hangman{
-  width: 400px;
-  text-align: center;
+  width: 80%;
   margin: 0 auto;
+  min-height: 80vh;
+}
+
+.Hangman-flex{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+   min-height: inherit;
+}
+
+.Hangman-flex div{
+  text-align: center;
+}
+
+.Hangman-reset{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 50%;
+}
+
+.Hangman-reset select{
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.55em 0.7em;
+  font-family: "Coming Soon", cursive;
 }
 
 .Hangman img{
@@ -59,10 +85,28 @@ body{
 #reset {
   width: auto;
   display: block;
-  margin: 2rem auto 0;
+  margin: 2rem auto;
   background: #9c27b0;
   box-shadow: 0 6px #7b1fa2;
 }
 #reset:hover {
   background: #7b1fa2;
+}
+
+@media (max-width: 570px) {
+  .Hangman-title{
+    text-align: center;
+  }
+  .Hangman-flex{
+    justify-content: center;
+  }
+  .Hangman-flex div{
+    flex: 1 1 auto;
+  }
+  .Hangman-reset select{
+    width: 70%;
+  }
+  #reset {
+    margin: 2rem auto 1rem;
+  }
 }
